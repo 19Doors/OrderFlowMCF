@@ -1,10 +1,16 @@
+import cookieParser from "cookie-parser";
 import express from "express";
 import ViteExpress from "vite-express";
 
 const app = express();
 
-app.get("/hello", (req, res) => {
-  res.send("Hello Vite + React!");
+/** Middlewares **/
+app.use(express.urlencoded());
+app.use(express.json());
+app.use(cookieParser());
+
+app.get("*", (req, res,next) => {
+  next();
 });
 
 ViteExpress.listen(app, 3000, () =>
