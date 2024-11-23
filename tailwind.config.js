@@ -4,6 +4,11 @@ export default {
     darkMode: ["class"],
     content: ["./index.html","./src/**/*.{jsx, js, css, tsx, ts}"],
   theme: {
+    fontFamily: {
+      "sg": '"Space Grotesk", sans-serif',
+      "barlowCondensed": '"Barlow Condensed", sans-serif',
+      "silkScreen": '"Silkscreen", sans-serif',
+    },
   	extend: {
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -88,4 +93,3 @@ export default {
   },
   plugins: [animate],
 }
-

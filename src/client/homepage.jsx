@@ -1,4 +1,4 @@
-import { Car, Nav } from "./components";
+import { Nav } from "./components";
 
 function Homepage() {
   return (
