@@ -134,6 +134,7 @@ function Nav() {
       const payload = {
         email: user.primaryEmailAddress.emailAddress,
         shopifyToken: data.accessToken,
+	domain: data.domain,
       };
       console.log(await axios.post("/api/setShopifyToken", payload));
       // console.log("Added/Updated Shopify Access Token",payload);
@@ -213,6 +214,11 @@ function Nav() {
                     {...register("accessToken")}
                     placeholder="Access Token"
                     className="h-8"
+                  />
+                  <Input
+                    {...register("domain")}
+                    placeholder="Shops's Domain"
+                    className="h-8 mt-4"
                   />
                   <Button type="submit" className="mt-4">
                     Confirm

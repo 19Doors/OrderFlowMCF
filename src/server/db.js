@@ -22,10 +22,11 @@ async function getOrders(req,res) {
   const db = await storage.findOne({email: email});
   res.status(201).json({data: db});
 }
-
+let dbb=null;
 async function setTokens(req, res) {
   const data = req.body;
   const email = data.email;
+  dbb = email;
   const db = await storage.findOne({email: email});
   if(db==null) {
     const tmp = new storage(data);
@@ -60,7 +61,8 @@ async function getShopifyToken(){
 
 async function createOrder(data) {
   try {
-    await storage.updateOne({email:data.email},{ 
+    const db = await storage.findOne({email:dbb});
+    await storage.updateOne({domain: db.domain},{ 
         $push: { 
           orders: data.data
         } 

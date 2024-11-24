@@ -38,7 +38,7 @@ function orderCreated(req,res) {
   fullData.total_price = data.total_price;
   console.log(fullData);
   try {
-    createOrder({data: fullData, email:req.body.email});
+    createOrder({data: fullData});
   }catch(e) {
     console.error(e);
   }
