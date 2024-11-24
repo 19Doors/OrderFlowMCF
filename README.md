@@ -1,30 +1,5 @@
 
 # Project Setup
-
-## Installation
-
-### Install Dependencies
-```bash
-npm install
-```
-### Start the Application
-#### Development mode:
-
-```bash
-npm run dev
-```
-#### Production mode:
-
-```bash
-npm run build
-npm start
-```
-markdown
-
-Copy code
-
-`# Project Setup
-
 ## Installation
 
 ### Install Dependencies
