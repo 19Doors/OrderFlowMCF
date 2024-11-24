@@ -3,6 +3,7 @@ import {createAdminApiClient} from "@shopify/admin-api-client"
 
 function orderCreated(req,res) {
   const data=req.body;
+  const shopDomain = req.headers['x-shopify-shop-domain'];
   const orderId = data.id;
   const orderEmail = data.contact_email;
   const billing_details = data.billing_address;
@@ -38,7 +39,7 @@ function orderCreated(req,res) {
   fullData.total_price = data.total_price;
   console.log(fullData);
   try {
-    createOrder({data: fullData});
+    createOrder({data: fullData, sd: shopDomain});
   }catch(e) {
     console.error(e);
   }
