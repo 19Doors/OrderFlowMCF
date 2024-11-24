@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import Products from "./products";
 import APIDetails from "./getDetails";
 import AccProfile from "./accountInfo";
+import Orders from "./ordersM";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/account_info",
     element: <AccProfile />
+  },
+  {
+    path: "/orders",
+    element: <Orders/>
   }
 ]);
 

@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import { bigStorage } from './schema.js';
+import { createClient } from 'redis';
+import { redisC } from './main.js';
+import { useClerk } from '@clerk/clerk-react';
 
 const uri = "mongodb+srv://19Doors:Doors@doors.4pvth.mongodb.net/?retryWrites=true&w=majority&appName=Doors";
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
@@ -16,17 +19,26 @@ async function startDB() {
   }
 }
 
+async function getOrders(req,res) {
+  const email = req.body.email;
+  const db = await storage.findOne({email: email});
+  res.status(201).json({data: db});
+}
+
 async function setTokens(req, res) {
   const data = req.body;
   const email = data.email;
+  await redisC.set('email',email);
   const db = await storage.findOne({email: email});
   if(db==null) {
     const tmp = new storage(data);
     await tmp.save();
+    await redisC.set('shopifyToken',data.shopifyToken);
     const payload = { statusCode:201, msg: "Email did not exist, created new data!" };
     res.status(201).json(payload);
   }else {
     await db.updateOne({email:email},data);
+    await redisC.set('shopifyToken',data.shopifyToken);
     const payload = { statusCode: 201, msg: "Thanks! Addition/Updation Done!!!"};
     res.status(201).json(payload);
   }
@@ -48,5 +60,19 @@ async function addProducts(req,res) {
   res.status(201).json({msg:"COMPLETED"});
 }
 
+async function getShopifyToken(){
+}
 
-export {startDB, setTokens, getProducts, addProducts};
+async function createOrder(data) {
+  try {
+    await storage.updateOne({email:data.email},{ 
+        $push: { 
+          orders: data.data
+        } 
+      });
+  }catch(e) {
+    console.error(e);
+  }
+}
+
+export {startDB, setTokens, getOrders, getProducts, addProducts, createOrder};

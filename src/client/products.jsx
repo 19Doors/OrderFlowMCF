@@ -8,10 +8,10 @@ import { StackTable } from "./table";
 function Products() {
   return (
     <div className="m-2">
+      <Nav />
       <SignedIn>
-        <Nav />
         <Separator />
-	<ProductsTable />
+        <ProductsTable />
       </SignedIn>
     </div>
   );
