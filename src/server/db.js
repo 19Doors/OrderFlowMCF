@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 import { bigStorage } from './schema.js';
-import { createClient } from 'redis';
-import { redisC } from './main.js';
 import { useClerk } from '@clerk/clerk-react';
 
 const uri = "mongodb+srv://19Doors:Doors@doors.4pvth.mongodb.net/?retryWrites=true&w=majority&appName=Doors";
@@ -28,17 +26,14 @@ async function getOrders(req,res) {
 async function setTokens(req, res) {
   const data = req.body;
   const email = data.email;
-  await redisC.set('email',email);
   const db = await storage.findOne({email: email});
   if(db==null) {
     const tmp = new storage(data);
     await tmp.save();
-    await redisC.set('shopifyToken',data.shopifyToken);
     const payload = { statusCode:201, msg: "Email did not exist, created new data!" };
     res.status(201).json(payload);
   }else {
     await db.updateOne({email:email},data);
-    await redisC.set('shopifyToken',data.shopifyToken);
     const payload = { statusCode: 201, msg: "Thanks! Addition/Updation Done!!!"};
     res.status(201).json(payload);
   }

@@ -3,11 +3,8 @@ import express from "express";
 import ViteExpress from "vite-express";
 import { addProducts, getOrders, getProducts, setTokens, startDB } from "./db.js";
 import { orderCreated } from "./shopifyAPI.js";
-import { createClient } from "redis";
-
 
 const app = express();
-const redisC = await createClient().on('error',err=>console.error(err)).connect();
 /** Middlewares **/
 app.use(express.urlencoded());
 app.use(express.json());
@@ -33,5 +30,3 @@ app.post("/api/setEmail", (req,res)=> {
 ViteExpress.listen(app, 3000, () =>
   console.log("Server is listening on port 3000..."),
 );
-
-export {redisC}

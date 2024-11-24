@@ -1,15 +1,7 @@
 import { createOrder } from "./db.js";
-import { redisC } from "./main.js";
 import {createAdminApiClient} from "@shopify/admin-api-client"
 
-const client = createAdminApiClient({
-  storeDomain: '19doorssakaar.myshopify.com',
-  apiVersion: '2024-10',
-  accessToken: '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',
-});
-
 function orderCreated(req,res) {
-  console.log(redisC.get('email'));
   const data=req.body;
   const orderId = data.id;
   const orderEmail = data.contact_email;

@@ -95,8 +95,8 @@ function TableOrders() {
 
   function OrderDetails({ expanded, setExpanded }) {
     return (
-      <Dialog open={expanded != null} onClose={() => setExpanded(null)}>
-        <DialogContent>
+      <Dialog open={expanded != null} onClose={() => setExpanded(null)} className="w-full">
+        <DialogContent className="w-auto">
           <div className="flex gap-x-2.5">
             <div id="billing Details" className="">
               <p className="font-bold text-md">Billing Details</p>
@@ -117,8 +117,8 @@ function TableOrders() {
                   </Label>
                 </div>
                 <div className="border-2 p-2 rounded-md">
-                  <Label className="font-bold text-sm text-nowrap">Address: </Label>
-                  <Label className="text-sm text-nowrap">
+                  <Label className="font-bold text-sm ">Address: </Label>
+                  <Label className="text-sm ">
                     {expanded.billing_details.address1 +
                       "," +
                       expanded.billing_details.city +
@@ -154,9 +154,9 @@ function TableOrders() {
                       : "null"}
                   </Label>
                 </div>
-                <div className="border-2 p-2 rounded-md text-nowrap">
+                <div className="border-2 p-2 rounded-md ">
                   <Label className="font-bold text-sm">Address: </Label>
-                  <Label className="text-sm text-nowrap">
+                  <Label className="text-sm ">
                     {expanded.shipping_details.address1 +
                       "," +
                       expanded.shipping_details.city +
